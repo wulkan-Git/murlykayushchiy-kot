@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мурлыкающий кот | GitHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Добро пожаловать!</h1>
+    <p>Наведите курсор на кота и кликните :)</p>
+
+    <div class="cat-container">
+        <img 
+            src="https://ws-soft.ru/wp-content/uploads/2023/06/cote1.gif" 
+            id="catImage" 
+            alt="Мурлыкающий кот"
+            title="Погладь меня">
+        <a href="https://dzen.ru/id/5ee8f445987ef673f1bcf80b?donate=true" 
+           target="_blank" 
+           class="cta-button">
+            Поддержать
+        </a>
+    </div>
+
+    <audio id="purrSound">
+        <source src="https://new-payeer.ru/mur.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио элемент.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('purrSound');
+        const catImage = document.getElementById('catImage');
+        
+        // Для мобильных устройств
+        let isTouched = false;
+        
+        function playSound() {
+            audio.play().catch(e => console.log("Автовоспроизведение: ", e.message));
+        }
+        
+        function stopSound() {
+            if(!isTouched) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+        
+        // Обработчики для десктопа
+        catImage.addEventListener('mouseenter', playSound);
+        catImage.addEventListener('mouseleave', stopSound);
+        
+        // Обработчики для мобильных
+        catImage.addEventListener('touchstart', () => {
+            isTouched = true;
+            playSound();
+        });
+        
+        catImage.addEventListener('touchend', () => {
+            isTouched = false;
+            setTimeout(stopSound, 2000);
+        });
+    </script>
+</body>
+</html>
